@@ -1,0 +1,284 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+#top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2ed7f5;
+  color: white;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+#profile {
+  display: flex;
+  align-items: center;
+}
+
+#profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#profile-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#balance-container {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#game-container {
+  max-width: 600px;
+  margin: 80px auto 20px; /* Push game content down to avoid top bar overlap */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+  width: 100%;
+  height: 500px;
+  background: #282c34;
+  border: 1px solid #ccc;
+}
+
+#controls {
+  margin-top: 20px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled {
+  background: linear-gradient(135deg, #ddd, #bbb);
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+button:hover:not(:disabled) {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #388e3c, #66bb6a);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#start-button {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+#start-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1976d2, #42a5f5);
+}
+
+#cashout-button {
+  background: linear-gradient(135deg, #ff5722, #ff8a65);
+}
+
+#cashout-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e64a19, #ff7043);
+}
+
+#aviator-image {
+  display: block;
+  margin: 20px auto;
+  width: 300px; /* Adjust size as needed */
+  height: auto;
+  animation: float 2s ease-in-out infinite;
+}
+
+/* Float animation for the plane */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Plane crash animation */
+@keyframes crash {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(50px) rotate(-15deg);
+  }
+  100% {
+    transform: translateY(500px) rotate(90deg);
+  }
+}
+
+#aviator-image.crash {
+  animation: crash 1s ease-in-out forwards;
+}
+
+/* Cashout notification animation */
+/* Cashout notification animation */
+@keyframes cashout-animation {
+  0% {
+    transform: translateY(50px); /* Start from the middle */
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px); /* Move upwards to just above center */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px); /* End at the top */
+    opacity: 0;
+  }
+}
+
+#cashout-notification {
+  position: fixed; /* Keep it in a fixed position */
+  top: 50%; /* Start in the middle of the screen */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the element properly */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  opacity: 0; /* Initially invisible */
+  visibility: hidden; /* Hide initially */
+  transition: visibility 0s, opacity 1s ease-out, top 1s ease-out; /* Slower transition */
+}
+
+#cashout-notification.show {
+  opacity: 1; /* Make the notification visible */
+  visibility: visible; /* Make it visible when shown */
+  top: 20px; /* Move it to 20px from the top */
+  animation: cashout-animation 3s forwards; /* Apply the animation */
+}
+
+#cashout-notification.hide {
+  opacity: 0; /* Hide the notification */
+  visibility: hidden; /* Ensure it's hidden */
+}
+
+/* Additional styling for the top bar to make it look more polished */
+#top-bar .profile-info {
+  display: flex;
+  align-items: center;
+}
+
+#top-bar .profile-info img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#top-bar .profile-info span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#top-bar .balance-info {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Style for the Bet Amount input */
+#bet-amount {
+  padding: 10px 15px;
+  font-size: 18px;
+  width: 200px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 2px solid #4caf50;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+#bet-amount:focus {
+  outline: none;
+  border-color: #66bb6a;
+  box-shadow: 0 2px 6px rgba(0, 255, 0, 0.2);
+}
+
+/* Style for the Place Bet button */
+#place-bet-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#place-bet-button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #388e3c, #66bb6a);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#place-bet-button:disabled {
+  background: linear-gradient(135deg, #ddd, #bbb);
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#bet-history {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+#bet-history h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#bet-history ul {
+  list-style: none;
+  padding: 0;
+}
+
+#bet-history li {
+  background: #f4f4f4;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
