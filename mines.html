@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mines Game - Beteor</title>
+  <link rel="stylesheet" href="mines.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="toast.css" />
+</head>
+<body>
+  <!-- Top Navbar with logo, user balance, and hamburger button -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.PNG" alt="Betron Logo" class="img-logo" />
+      <span class="logo-text">Betron</span>
+    </div>
+    <!-- Centered money display -->
+    <div id="userBalance" class="user-balance">
+      
+      <a href="login.html" class="cta-btn">Sign-In/Sign-Up</a>
+    </div>
+    <!-- Hamburger Menu Toggle Button -->
+    <button id="menuToggle" class="menu-toggle" aria-label="Toggle navigation">
+      <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </nav>
+  
+  <!-- Off-Canvas Side Menu -->
+  <div id="sideMenu" class="side-menu">
+    <ul class="menu-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Games</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="menu-bottom">
+   
+      
+      
+      <span>Toggle Theme</span>
+      <!-- Custom Toggle Switch -->
+      <label class="toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+
+
+
+  <div class="container">
+    <!-- LEFT PANEL (Controls) -->
+    <div class="left-panel">
+      <div class="balance" id="balanceInfo">Balance: 0.00</div>
+      <div class="input-group">
+        <label for="betAmount">Bet Amount:</label>
+        <input type="number" id="betAmount" min="1" placeholder="Bet" />
+      </div>
+      <div class="input-group">
+        <label for="mineCountSelect">Mines (1–24):</label>
+        <select id="mineCountSelect"></select>
+      </div>
+      <!-- Single Button for Bet / Cashout -->
+      <button id="placeBetBtn">Place Bet</button>
+      <div id="betMessage" class="error"></div>
+      <!-- Pick Random Tile Button -->
+      <button id="pickRandomBtn">Pick Random Tile</button>
+    </div>
+    <!-- RIGHT PANEL (Game Board) -->
+    <div class="right-panel">
+      <div id="grid" class="grid disabled"></div>
+      <!-- Result overlay will appear in the center of the board -->
+      <div id="resultOverlay"></div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+  </footer>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+
+  <!-- Main JavaScript -->
+   <script src="google.js"></script>
+  <script src="mines.js"></script>
+  <script src="script.js"></script>
+  <script src="login.js"></script>
+  <script src="toast.js"></script>
+</body>
+</html>

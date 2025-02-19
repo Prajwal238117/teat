@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Sign Up</title>
+  <!-- Import the Inter font from Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="toast.css" />
+</head>
+<body>
+
+
+  <div id="toast-container"></div>
+
+
+
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <div class="tabs">
+        <button id="loginTab" class="tab active">Login</button>
+        <button id="signupTab" class="tab">Sign Up</button>
+      </div>
+      
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form" onsubmit="login(event)">
+        <h2>Login</h2>
+        <div class="form-group">
+          <label for="loginemail">Email</label>
+          <input type="email" id="loginEmail" name="loginEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="loginpassword">Password</label>
+          <input type="password" id="loginPassword" name="loginPassword" placeholder="Your password" required />
+        </div>
+        <button type="submit" class="cta-btn" >Login</button>
+        
+        <div class="divider">OR</div>
+        
+        <button type="button" class="google-btn" id="loginGoogle" onclick="loginWithGoogle()">
+          <img src="google.jpeg" alt="Google Icon" />
+          Sign in with Google
+        </button>
+      </form>
+      
+      <!-- Sign Up Form -->
+      <form id="signupForm" class="auth-form hidden" onsubmit="signup(event)" >
+        <h2>Sign Up</h2>
+        <div class="form-group">
+          <label for="signupname">Full Name</label>
+          <input type="text" id="signupName" name="signupName" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="signupemail">Email</label>
+          <input type="email" id="signupEmail" name="signupEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="signuppassword">Password</label>
+          <input type="password" id="signupPassword" name="signupPassword" placeholder="Create a password" required />
+        </div>
+        <button type="submit" class="cta-btn" >Sign Up</button>
+        <div class="divider">OR</div>
+        <button type="button" class="google-btn" id="signupGoogle">
+          <img src="google.jpeg" alt="Google Icon" onclick="loginWithGoogle()" />
+          Sign up with Google
+        </button>
+      </form>
+    </div>
+  </div>
+
+   <!-- Firebase and Other Scripts -->
+   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+   <script>
+     // Your Firebase configuration
+     const firebaseConfig = {
+       apiKey: "AIzaSyCxAPjLcvdAA27vbfzv6McEhMOaK_9v7Uk",
+       authDomain: "real-db83c.firebaseapp.com",
+       projectId: "real-db83c",
+       storageBucket: "real-db83c.firebasestorage.app",
+       messagingSenderId: "756487873527",
+       appId: "1:756487873527:web:50c6456f4d9a93564584f2"
+     }; 
+ 
+     firebase.initializeApp(firebaseConfig);
+   </script>
+   <!-- Link to the main JS file -->
+   <script src="login.js"></script>
+ 
+</body>
+</html>

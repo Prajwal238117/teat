@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beteor - Home</title>
+  <!-- Import the Inter font from Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Link to the main CSS file -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="toast.css" />
+</head>
+<body>
+  <!-- Top Navbar with logo, user balance, and hamburger button -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.PNG" alt="Betron Logo" class="img-logo" />
+      <span class="logo-text">Betron</span>
+    </div>
+    <!-- Centered money display -->
+    <div id="userBalance" class="user-balance">
+      
+      <a href="login.html" class="cta-btn">Sign-In/Sign-Up</a>
+    </div>
+    <!-- Hamburger Menu Toggle Button -->
+    <button id="menuToggle" class="menu-toggle" aria-label="Toggle navigation">
+      <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </nav>
+  
+  <!-- Off-Canvas Side Menu -->
+  <div id="sideMenu" class="side-menu">
+    <ul class="menu-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Games</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="menu-bottom">
+   
+      
+      
+      <span>Toggle Theme</span>
+      <!-- Custom Toggle Switch -->
+      <label class="toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+  
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-overlay">
+      <h1>Bet with Confidence</h1>
+      <p>Games For Your Choice.</p>
+      <a href="#games" class="cta-btn">Start Playing</a>
+    </div>
+  </div>
+  
+  <!-- Games Section -->
+  <h1 class="section-title">Trending Games</h1>
+  <section id="games" class="games-grid">
+    <div class="game-card">
+      <div class="skeleton skeleton-image"></div>
+      <img src="mine.png" alt="Mines Game" class="game-image" onload="this.previousElementSibling.style.display='none'" />
+      <a href="mines.html" class="game-link">
+        <button class="cta-btn">Play Mines</button>
+      </a>
+    </div>
+    <div class="game-card">
+      <div class="skeleton skeleton-image"></div>
+      <img src="ht.png" alt="Coin Flip Game" class="game-image" onload="this.previousElementSibling.style.display='none'" />
+      <a href="coinflip.html" class="game-link">
+        <button class="cta-btn">Play Coin Flip</button>
+      </a>
+    </div>
+    <div class="game-card">
+      <div class="skeleton skeleton-image"></div>
+      <img src="odd.png" alt="Dice Game" class="game-image" onload="this.previousElementSibling.style.display='none'" />
+      <a href="dice.html" class="game-link">
+        <button class="cta-btn">Play Dice</button>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Firebase and Other Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+  <script src="google.js"></script>
+  <script src="script.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
