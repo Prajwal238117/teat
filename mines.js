@@ -42,16 +42,19 @@
         }
       } catch (error) {
         console.error("Error fetching balance:", error);
-        userBalance = 0;
+         balanceInfoEl.textContent = `<a href="login.html" class="cta-btn">Sign-In/Sign-Up</a>`;
+        
       }
     } else {
       userBalance = 0;
     }
     updateBalanceDisplay();
+    updateUserBalance();
   });
 
   function updateBalanceDisplay() {
-    balanceInfoEl.textContent = `Balance: NPR ${userBalance.toFixed(2)}`;
+    balanceInfoEl.textContent = `NPR ${userBalance.toFixed(2)}`;
+   
   }
 
   /************************************************

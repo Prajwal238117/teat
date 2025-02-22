@@ -53,7 +53,7 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
   position: relative;
-  z-index: 1001;
+  z-index: 100000;
 }
 
 .logo {
@@ -61,7 +61,7 @@ body {
   align-items: center;
   gap: 0.75rem;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--light);
 }
 
@@ -71,7 +71,7 @@ body {
 }
 
 .user-balance {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--light);
   text-align: center;
@@ -161,6 +161,7 @@ body {
   align-items: center;
   gap: 0.5rem;
 }
+
 
 /* ---------------------------------------------------
    Hero Section with Parallax Effect
@@ -391,4 +392,230 @@ button {
 
 .hi{
   padding: 0%;
+}
+
+
+/* ---------------------------------------------------
+   Mobile Specific Adjustments
+----------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Adjust navbar layout for a more vertical mobile display */
+  .navbar {
+   
+    padding: 1rem;
+  }
+
+  /* Resize the logo and user balance text for better fit */
+  
+  .user-balance {
+    font-size: 1rem;
+   
+  }
+  
+  /* Ensure the menu toggle stays accessible */
+  .menu-toggle {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  /* Modify hero section to disable fixed parallax (improves performance on mobile)
+     and reduce heading size for readability */
+  .hero {
+    height: auto;
+    padding: 2rem 1rem;
+    background-attachment: scroll; /* disable fixed background on mobile */
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* Adjust grid layout: reduce minimum card width and gaps */
+  .games-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .game-card {
+    padding: 1rem;
+  }
+  .game-image {
+    height: 180px;
+    
+  }
+
+  /* Scale down the call-to-action button for smaller screens */
+  .cta-btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  /* Adjust the off-canvas side menu to better suit mobile widths */
+  .side-menu {
+    width: 85%;
+    max-width: none;
+    padding: 1.5rem 1rem;
+  }
+
+  /* Resize the custom toggle switch */
+  .toggle {
+    width: 50px;
+    height: 28px;
+  }
+  .toggle-slider:before {
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+  }
+}
+
+
+
+
+
+.game-container {
+  padding: 20px;
+}
+
+.coin {
+  width: 150px;
+  height: 150px;
+  position: relative;
+
+  /* Keep perspective if you want a 3D effect */
+  perspective: 1000px;
+
+  /* Either remove overflow: hidden or set to visible 
+     so the rotated coin isn't clipped */
+  overflow: visible; 
+}
+
+.coin-face {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+
+  /* Smooth out rotation transitions */
+  transition: transform 0.1s linear;
+
+  /* Make sure the rotation happens from the center */
+  transform-origin: center center;
+
+  /* If you only have one image, and want to hide the 'back' face,
+     you can add:
+     backface-visibility: hidden;
+     transform-style: preserve-3d;
+  */
+}
+
+
+@keyframes flip-vertical {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(360deg); }
+}
+
+
+
+#result {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Add this to your CSS file */
+.game-container .buttons {
+  margin: 2rem; /* Increase or decrease this value as needed */
+  
+}
+
+
+
+
+
+/* "Pro Max" style for the bet input field */
+#bet-amount {
+  width: 250px;  /* Adjust width as desired */
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--primary);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.05); /* Subtle translucent background */
+  color: var(--light);
+  outline: none;
+  transition: 
+    border-color 0.3s ease, 
+    box-shadow 0.3s ease, 
+    background 0.3s ease;
+  backdrop-filter: blur(6px); /* Slight blur for a glassmorphism effect */
+}
+
+/* Placeholder styling */
+#bet-amount::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Focused state for a bright accent */
+#bet-amount:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); /* Matches the secondary color */
+  background: rgba(255, 255, 255, 0.15); /* Slightly more opaque on focus */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#heads-btn {
+  background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+}
+
+#tails-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #4bf63b 100%);
+}
+
+
+/* Center the buttons and add spacing from the coin */
+.buttons {
+  display: flex;           /* Use flex layout */
+  justify-content: center; /* Center horizontally */
+  gap: 1rem;               /* Space between buttons */
+  margin-top: 2rem;        /* Spacing from the coin */
+}
+
+/* Attractive gradient style for both buttons */
+.buttons .cta-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  color: #fff;
+  background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); /* Green-to-Blue gradient */
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for extra pop */
+.buttons .cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4); /* Matches the blue end of gradient */
+}
+
+.ikol{
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  
 }
