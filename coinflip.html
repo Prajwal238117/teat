@@ -4,94 +4,102 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coin Flip Game</title>
+  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css" />
+  <!-- (Optional) Additional logo styles if needed -->
   <link rel="stylesheet" href="logo.css" />
 </head>
 <body>
   <!-- Top Navbar with logo, user balance, and hamburger button -->
   <nav class="navbar">
     <div class="logo">
-     
-      
-        <div class="beteor-logo">Beteor</div>
-      
-
-        </div>
-        <!-- Centered money display -->
-        <div id="user-Balance" class="user-balance">
-          
-          <a href="login.html" class="cta-btn">Sign-In/Sign-Up</a>
-        </div>
-        <!-- Hamburger Menu Toggle Button -->
-        <button id="menuToggle" class="menu-toggle" aria-label="Toggle navigation">
-          <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </nav>
-      
-      <!-- Off-Canvas Side Menu -->
-      <div id="sideMenu" class="side-menu">
-        <ul class="menu-links">
-          <li><a>Hello! Welcome Back <hr></a></li>
-        
-          
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#games">Games</a></li>
-          <li><a href="#">Deposite</a></li>
+      <div class="beteor-logo">Beteor</div>
+    </div>
+    <!-- Centered money display -->
+    <div id="user-Balance" class="user-balance">
+      <a href="login.html" class="cta-btn">Sign-In/Sign-Up</a>
+    </div>
+    <!-- Hamburger Menu Toggle Button -->
+    <button id="menuToggle" class="menu-toggle" aria-label="Toggle navigation">
+      <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </nav>
+  
+  <!-- Off-Canvas Side Menu -->
+  <div id="sideMenu" class="side-menu">
+    <ul class="menu-links">
+      <li><a>Hello! Welcome Back <hr></a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#games">Games</a></li>
+      <li><a href="#">Deposite</a></li>
       <li><a href="#">Withdraw</a></li>
-        </ul>
-        <div class="menu-bottom">
-      
-          
-          
-          <span>Toggle Theme</span>
-          <!-- Custom Toggle Switch -->
-          <label class="toggle">
-            <input type="checkbox" id="themeToggle" />
-            <span class="toggle-slider"></span>
-          </label>
+    </ul>
+    <div class="menu-bottom">
+      <span>Toggle Theme</span>
+      <!-- Custom Toggle Switch -->
+      <label class="toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-overlay">
+      <div class="game-container">
+        <!-- Main title & subtitle -->
+        <h1 class="game-title">Flip the Coin</h1>
+        <p class="game-subtitle">Choose Heads or Tails and test your luck!</p>
+
+        <!-- Bet form container -->
+        <div class="bet-form">
+          <input 
+            type="number" 
+            id="bet-amount" 
+            placeholder="Enter your bet" 
+            min="1"
+          />
+          <button class="cta-btn" id="place-bet-btn">Place Bet</button>
+        </div>
+
+        <!-- Displays a message about the bet (e.g., errors) -->
+        <p id="bet-message"></p>
+
+        <!-- Coin Section -->
+        <div class="coin-section">
+          <div class="coin" id="coin">
+            <img 
+              src="h.png" 
+              alt="Coin Face" 
+              class="coin-face" 
+              id="coin-face" 
+            />
+          </div>
+        </div>
+
+        <p id="result"></p>
+        
+        <!-- Heads / Tails Buttons -->
+        <div class="buttons">
+          <button class="cta-btn" id="heads-btn">Heads</button>
+          <span class="ikol">OR</span>
+          <button class="cta-btn" id="tails-btn">Tails</button>
         </div>
       </div>
+    </div>
+  </div>
 
+  <!-- Firebase Scripts (v8) -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
 
-      <div class="hero">
-        <div class="hero-overlay">
-          <h1>Flip the Coin</h1>
-          <p>Choose Heads or Tails and test your luck!</p>
-
-          <!-- Bet input, bet message, and place bet button -->
-          <div class="bet-container">
-            <input type="number" id="bet-amount" placeholder="Enter your bet" min="1" />
-            <button class="cta-btn" id="place-bet-btn">Place Bet</button>
-            <p id="bet-message"></p>
-          </div>
-
-          <div class="game-container">
-            <div class="coin" id="coin">
-              <img src="h.png" alt="Coin Face" class="coin-face" id="coin-face" />
-            </div>
-            <p id="result"></p>
-            
-            <div class="buttons">
-               <button class="cta-btn" id="heads-btn">Heads</button>
-              <span class="ikol">OR</span>
-               <button class="cta-btn" id="tails-btn">Tails</button>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-
-      <!-- Firebase Scripts (v8) -->
-      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
-
-      <!-- Your Firebase configuration -->
-      <script src="google.js"></script>
-      <script src="coin.js"></script>
-      <script src="script.js"></script>
-
-  </body>
+  <!-- Your Firebase configuration -->
+  <script src="google.js"></script>
+  <script src="coin.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
