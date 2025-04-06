@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - Nepal Top-Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .reviews-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .reviews-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .reviews-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .reviews-stats {
+            background-color: white;
+            padding: 30px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .review-stat {
+            text-align: center;
+        }
+
+        .review-stat h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .review-stat p {
+            color: var(--gray);
+        }
+
+        .reviews-grid {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .reviewer-info h3 {
+            margin: 0;
+            color: var(--dark-color);
+        }
+
+        .reviewer-info p {
+            margin: 5px 0 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .review-rating {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .review-content {
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .review-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .reviews-filter {
+            max-width: 1200px;
+            margin: 40px auto 20px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sort-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background-color: white;
+        }
+
+        @media (max-width: 992px) {
+            .reviews-container {
+                padding: 0 20px;
+            }
+            
+            .review-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .reviews-filter {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .filter-btn {
+                white-space: nowrap;
+            }
+            
+            .sort-select {
+                width: 100%;
+            }
+            
+            .review-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .reviewer-avatar {
+                margin: 0 0 15px 0;
+            }
+            
+            .reviewer-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .review-card {
+                padding: 15px;
+            }
+            
+            .review-rating {
+                font-size: 1.2rem;
+            }
+            
+            .review-content {
+                font-size: 0.9rem;
+            }
+            
+            .review-date {
+                font-size: 0.8rem;
+            }
+            
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-mobile-alt"></i> Nepal Top-Up
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="index.html#cart" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </a>
+            <a href="profile.html" class="account-icon">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="index.html#cart">Cart</a>
+        <a href="profile.html">Account</a>
+    </div>
+
+    <!-- Reviews Hero -->
+    <section class="reviews-hero">
+        <h1>Customer Reviews</h1>
+        <p>See what our customers have to say about their experience with Nepal Top-Up</p>
+    </section>
+
+    <!-- Reviews Stats -->
+    <section class="reviews-stats">
+        <div class="stats-wrapper">
+            <div class="review-stat">
+                <h3 id="average-rating">0.0</h3>
+                <p>Average Rating</p>
+            </div>
+            <div class="review-stat">
+                <h3 id="total-reviews">0</h3>
+                <p>Total Reviews</p>
+            </div>
+            <div class="review-stat">
+                <h3 id="happy-customers">0</h3>
+                <p>Happy Customers</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Filter -->
+    <div class="reviews-filter">
+        <div class="filter-buttons">
+            <button class="filter-btn active">All Reviews</button>
+            <button class="filter-btn">5 Star</button>
+            <button class="filter-btn">4 Star</button>
+            <button class="filter-btn">3 Star</button>
+            <button class="filter-btn">2 Star</button>
+            <button class="filter-btn">1 Star</button>
+        </div>
+        <select class="sort-select">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="highest">Highest Rated</option>
+            <option value="lowest">Lowest Rated</option>
+        </select>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="reviews-grid" id="reviews-container">
+        <!-- Reviews will be dynamically loaded here -->
+    </div>
+
+    <!-- Firebase Modules -->
+    <script type="module">
+        // Import Firebase modules
+        import { auth, db } from './firebase-config.js';
+        import { collection, query, orderBy, getDocs, where } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
+        // DOM Elements
+        const reviewsContainer = document.getElementById('reviews-container');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const sortSelect = document.querySelector('.sort-select');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const averageRatingElement = document.getElementById('average-rating');
+        const totalReviewsElement = document.getElementById('total-reviews');
+        const happyCustomersElement = document.getElementById('happy-customers');
+
+        // Load statistics
+        async function loadStatistics() {
+            try {
+                const reviewsRef = collection(db, 'reviews');
+                const reviewsSnapshot = await getDocs(reviewsRef);
+                
+                let totalRating = 0;
+                let totalReviews = 0;
+                let happyCustomers = 0;
+
+                reviewsSnapshot.forEach(doc => {
+                    const review = doc.data();
+                    totalRating += review.rating;
+                    totalReviews++;
+                    if (review.rating === 5) {
+                        happyCustomers++;
+                    }
+                });
+
+                const averageRating = totalReviews > 0 ? (totalRating / totalReviews).toFixed(1) : '0.0';
+                
+                // Update the stats in the UI
+                averageRatingElement.textContent = averageRating;
+                totalReviewsElement.textContent = totalReviews;
+                happyCustomersElement.textContent = happyCustomers;
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+                showNotification('Error loading statistics', 'error');
+            }
+        }
+
+        // Load reviews
+        async function loadReviews(filter = 'all', sort = 'newest') {
+            try {
+                const reviewsRef = collection(db, 'reviews');
+                let reviewsQuery = query(reviewsRef);
+
+                // Apply filters
+                if (filter !== 'all') {
+                    const rating = parseInt(filter);
+                    reviewsQuery = query(reviewsRef, where('rating', '==', rating));
+                }
+
+                // Apply sorting
+                switch (sort) {
+                    case 'oldest':
+                        reviewsQuery = query(reviewsQuery, orderBy('createdAt', 'asc'));
+                        break;
+                    case 'highest':
+                        reviewsQuery = query(reviewsQuery, orderBy('rating', 'desc'));
+                        break;
+                    case 'lowest':
+                        reviewsQuery = query(reviewsQuery, orderBy('rating', 'asc'));
+                        break;
+                    default:
+                        reviewsQuery = query(reviewsQuery, orderBy('createdAt', 'desc'));
+                }
+
+                const reviewsSnapshot = await getDocs(reviewsQuery);
+                reviewsContainer.innerHTML = '';
+
+                if (reviewsSnapshot.empty) {
+                    reviewsContainer.innerHTML = '<p class="no-reviews">No reviews found.</p>';
+                    return;
+                }
+
+                reviewsSnapshot.forEach(doc => {
+                    const review = doc.data();
+                    const reviewElement = createReviewElement(review);
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+                showNotification('Error loading reviews', 'error');
+            }
+        }
+
+        // Create review element
+        function createReviewElement(review) {
+            const div = document.createElement('div');
+            div.className = 'review-card animate__animated animate__fadeIn';
+
+            const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+            const date = new Date(review.createdAt.toDate()).toLocaleDateString();
+
+            div.innerHTML = `
+                <div class="review-header">
+                    <img src="${review.userPhoto || 'https://via.placeholder.com/50'}" alt="${review.userName}" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <h3>${review.userName}</h3>
+                        <p>Verified Purchase</p>
+                    </div>
+                </div>
+                <div class="review-rating">${stars}</div>
+                <div class="review-content">${review.content}</div>
+                <div class="review-date">${date}</div>
+            `;
+
+            return div;
+        }
+
+        // Event Listeners
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const filter = button.textContent.toLowerCase().replace(' star', '');
+                loadReviews(filter, sortSelect.value);
+            });
+        });
+
+        sortSelect.addEventListener('change', () => {
+            const activeFilter = document.querySelector('.filter-btn.active').textContent
+                .toLowerCase().replace(' star', '');
+            loadReviews(activeFilter, sortSelect.value);
+        });
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStatistics();
+            loadReviews();
+        });
+
+        // Notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    </script>
+</body>
+</html> 

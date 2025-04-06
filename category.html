@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Products - Nepal Top-Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-gamepad"></i> Nepal Top-Up
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search games, gift cards...">
+            <button id="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Games</a>
+            <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+            <a href="profile.html" class="account-icon"><i class="fas fa-user"></i></a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Games</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="cart.html">Cart</a>
+        <a href="profile.html">Account</a>
+    </div>
+
+    <main>
+        <div class="category-header">
+            <h1 id="category-title">Category Products</h1>
+            <p id="category-description">Browse all products in this category</p>
+        </div>
+
+        <section class="filters-section">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="sort-by">Sort By:</label>
+                    <select id="sort-by">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="price-range">Price Range:</label>
+                    <select id="price-range">
+                        <option value="all">All Prices</option>
+                        <option value="0-500">Rs. 0 - Rs. 500</option>
+                        <option value="500-1000">Rs. 500 - Rs. 1000</option>
+                        <option value="1000-2000">Rs. 1000 - Rs. 2000</option>
+                        <option value="2000+">Rs. 2000+</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="products-grid">
+            <!-- Products will be dynamically loaded here -->
+        </section>
+
+        
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Nepal Top-Up is your one-stop shop for all digital gaming needs, including game top-ups and gift cards.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Games</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> info@nepaltopup.com</p>
+                <p><i class="fas fa-phone"></i> +977 1234567890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Nepal Top-Up. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Scripts -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="category.js"></script>
+</body>
+</html> 

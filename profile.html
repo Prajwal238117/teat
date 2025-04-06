@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Nepal Top-Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #3498db;
+            --light: #f5f5f5;
+            --dark: #333;
+            --gray: #95a5a6;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .profile-header {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h1 {
+            margin: 0 0 10px;
+            color: var(--secondary);
+        }
+
+        .profile-info p {
+            margin: 0;
+            color: var(--gray);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .profile-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .tab:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .order-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-id {
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .order-date {
+            color: var(--gray);
+        }
+
+        .order-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning);
+        }
+
+        .status-processing {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--info);
+        }
+
+        .status-completed {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+        }
+
+        .status-cancelled {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger);
+        }
+
+        .order-items {
+            margin-bottom: 15px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .order-item-price {
+            color: var(--gray);
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-weight: 500;
+        }
+
+        .address-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .address-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .address-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .address-type {
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .address-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .address-content {
+            margin-bottom: 15px;
+        }
+
+        .address-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .address-details {
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .address-default {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(100%);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .notification-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .notification i {
+            font-size: 1.2rem;
+        }
+
+        .notification-success i {
+            color: var(--success);
+        }
+
+        .notification-error i {
+            color: var(--danger);
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-actions {
+                justify-content: center;
+            }
+
+            .profile-tabs {
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+
+            .tab {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-mobile-alt"></i> Nepal Top-Up
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Products</a>
+            <a href="index.html#cart" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+            <a href="profile.html" class="active account-icon"><i class="fas fa-user"></i></a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="index.html#cart">Cart</a>
+        <a href="profile.html" class="active">Account</a>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <img id="profile-avatar" src="https://via.placeholder.com/120" alt="Profile Avatar" class="profile-avatar">
+            <div class="profile-info">
+                <h1 id="profile-name">User</h1>
+                <p id="profile-email">user@example.com</p>
+            </div>
+            <div class="profile-actions">
+                <button id="edit-profile" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+                <button id="logout" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <div class="tab active" data-tab="profile">Profile</div>
+            <div class="tab" data-tab="orders">Orders</div>
+            <div class="tab" data-tab="addresses">Addresses</div>
+            <div class="tab" data-tab="password">Password</div>
+        </div>
+
+        <div class="tab-content active" id="profile-tab">
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required disabled>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone">
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="tab-content" id="orders-tab">
+            <div id="order-list">
+                <!-- Orders will be loaded here -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-id">Order #12345</div>
+                        <div class="order-date">March 15, 2023</div>
+                        <div class="order-status status-completed">Completed</div>
+                    </div>
+                    <div class="order-items">
+                        <div class="order-item">
+                            <img src="https://via.placeholder.com/60" alt="Product" class="order-item-image">
+                            <div class="order-item-info">
+                                <div class="order-item-name">iPhone 13 Pro</div>
+                                <div class="order-item-price">$999.00 x 1</div>
+                            </div>
+                        </div>
+                        <div class="order-item">
+                            <img src="https://via.placeholder.com/60" alt="Product" class="order-item-image">
+                            <div class="order-item-info">
+                                <div class="order-item-name">AirPods Pro</div>
+                                <div class="order-item-price">$249.00 x 1</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-total">
+                        <div>Total</div>
+                        <div>$1,248.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="addresses-tab">
+            <button id="add-address" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Address
+            </button>
+            <div id="address-list">
+                <!-- Addresses will be loaded here -->
+                <div class="address-card">
+                    <div class="address-header">
+                        <div class="address-type">Home</div>
+                        <div class="address-actions">
+                            <button class="btn btn-primary edit-address" data-id="${addressId}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger delete-address" data-id="${addressId}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="address-content">
+                        <div class="address-name">John Doe</div>
+                        <div class="address-details">
+                            123 Main St, Apt 4B<br>
+                            New York, NY 10001<br>
+                            United States
+                        </div>
+                        <div class="address-default">Default Address</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="password-tab">
+            <form id="password-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password</label>
+                    <input type="password" id="confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Modules -->
+    <script type="module">
+        // Import Firebase modules
+        import { auth, db } from './firebase-config.js';
+        import { 
+            onAuthStateChanged,
+            signOut,
+            updatePassword,
+            EmailAuthProvider,
+            reauthenticateWithCredential,
+            updateProfile
+        } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+        import { 
+            doc, 
+            getDoc, 
+            updateDoc, 
+            collection, 
+            query, 
+            where, 
+            getDocs,
+            addDoc,
+            deleteDoc,
+            serverTimestamp,
+            setDoc
+        } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
+        // DOM Elements
+        const profileAvatar = document.getElementById('profile-avatar');
+        const profileName = document.getElementById('profile-name');
+        const profileEmail = document.getElementById('profile-email');
+        const editProfileBtn = document.getElementById('edit-profile');
+        const logoutBtn = document.getElementById('logout');
+        const profileForm = document.getElementById('profile-form');
+        const passwordForm = document.getElementById('password-form');
+        const orderList = document.getElementById('order-list');
+        const addressList = document.getElementById('address-list');
+        const addAddressBtn = document.getElementById('add-address');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        // Check authentication state
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // User is signed in
+                await loadUserProfile(user);
+                await loadOrders(user);
+                await loadAddresses(user);
+            } else {
+                // User is signed out, redirect to login page
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Load user profile
+        async function loadUserProfile(user) {
+            try {
+                const userDocRef = doc(db, 'users', user.uid);
+                const userDoc = await getDoc(userDocRef);
+                
+                // Create user document if it doesn't exist
+                if (!userDoc.exists()) {
+                    const displayName = user.displayName || '';
+                    const nameParts = displayName.split(' ');
+                    const firstName = nameParts[0] || '';
+                    const lastName = nameParts.slice(1).join(' ') || '';
+                    
+                    await setDoc(userDocRef, {
+                        firstName,
+                        lastName,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                        role: 'user', // Default role is user
+                        createdAt: serverTimestamp(),
+                        updatedAt: serverTimestamp()
+                    });
+                    
+                    // Update UI with default values
+                    document.getElementById('firstName').value = firstName;
+                    document.getElementById('lastName').value = lastName;
+                } else {
+                    // Update UI with existing values
+                    const userData = userDoc.data();
+                    document.getElementById('firstName').value = userData.firstName || '';
+                    document.getElementById('lastName').value = userData.lastName || '';
+                    document.getElementById('phone').value = userData.phone || '';
+                    
+                    // Check if user is admin and show admin panel link if they are
+                    if (userData.role === 'admin') {
+                        const adminLink = document.createElement('a');
+                        adminLink.href = 'admin.html';
+                        adminLink.className = 'btn-primary';
+                        adminLink.innerHTML = '<i class="fas fa-cog"></i> Admin Panel';
+                        document.querySelector('.profile-actions').appendChild(adminLink);
+                    }
+                }
+                
+                // Update profile header
+                profileAvatar.src = user.photoURL || 'https://static.vecteezy.com/system/resources/previews/009/361/502/original/3d-profile-realistic-icon-design-illustrations-3d-render-design-concept-vector.jpg';
+                profileName.textContent = user.displayName || 'User';
+                profileEmail.textContent = user.email;
+                document.getElementById('email').value = user.email;
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+                showNotification('Error loading profile', 'error');
+            }
+        }
+
+        // Load orders
+        async function loadOrders(user) {
+            try {
+                const ordersQuery = query(collection(db, 'orders'), where('userId', '==', user.uid));
+                const ordersSnapshot = await getDocs(ordersQuery);
+                
+                if (ordersSnapshot.empty) {
+                    orderList.innerHTML = '<p>No orders found.</p>';
+                    return;
+                }
+                
+                orderList.innerHTML = '';
+                
+                ordersSnapshot.forEach(doc => {
+                    const order = doc.data();
+                    const orderElement = createOrderElement(doc.id, order);
+                    orderList.appendChild(orderElement);
+                });
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                showNotification('Error loading orders', 'error');
+            }
+        }
+
+        // Create order element
+        function createOrderElement(orderId, order) {
+            const div = document.createElement('div');
+            div.className = 'order-card';
+            
+            const statusClass = `status-${order.status.toLowerCase()}`;
+            
+            div.innerHTML = `
+                <div class="order-header">
+                    <div class="order-id">Order #${orderId.substring(0, 8)}</div>
+                    <div class="order-date">${formatDate(order.createdAt)}</div>
+                    <div class="order-status ${statusClass}">${order.status}</div>
+                </div>
+                <div class="order-items">
+                    ${order.items.map(item => `
+                        <div class="order-item">
+                            <img src="${item.image || 'https://via.placeholder.com/60'}" alt="${item.name}" class="order-item-image">
+                            <div class="order-item-info">
+                                <div class="order-item-name">${item.name}</div>
+                                <div class="order-item-price">$${item.price.toFixed(2)} x ${item.quantity}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="order-total">
+                    <div>Total</div>
+                    <div>$${order.total.toFixed(2)}</div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // Load addresses
+        async function loadAddresses(user) {
+            try {
+                const addressesQuery = query(collection(db, 'addresses'), where('userId', '==', user.uid));
+                const addressesSnapshot = await getDocs(addressesQuery);
+                
+                if (addressesSnapshot.empty) {
+                    addressList.innerHTML = '<p>No addresses found.</p>';
+                    return;
+                }
+                
+                addressList.innerHTML = '';
+                
+                addressesSnapshot.forEach(doc => {
+                    const address = doc.data();
+                    const addressElement = createAddressElement(doc.id, address);
+                    addressList.appendChild(addressElement);
+                });
+            } catch (error) {
+                console.error('Error loading addresses:', error);
+                showNotification('Error loading addresses', 'error');
+            }
+        }
+
+        // Create address element
+        function createAddressElement(addressId, address) {
+            const div = document.createElement('div');
+            div.className = 'address-card';
+            
+            const defaultBadge = address.isDefault ? '<div class="address-default">Default Address</div>' : '';
+            
+            div.innerHTML = `
+                <div class="address-header">
+                    <div class="address-type">${address.type}</div>
+                    <div class="address-actions">
+                        <button class="btn btn-primary edit-address" data-id="${addressId}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger delete-address" data-id="${addressId}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="address-content">
+                    <div class="address-name">${address.name}</div>
+                    <div class="address-details">
+                        ${address.street}<br>
+                        ${address.city}, ${address.state} ${address.zipCode}<br>
+                        ${address.country}
+                    </div>
+                    ${defaultBadge}
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // Update profile
+        profileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const phone = document.getElementById('phone').value;
+            
+            try {
+                // Check if user document exists
+                const userDocRef = doc(db, 'users', user.uid);
+                const userDoc = await getDoc(userDocRef);
+                
+                if (!userDoc.exists()) {
+                    // Create user document if it doesn't exist
+                    await setDoc(userDocRef, {
+                        firstName,
+                        lastName,
+                        phone,
+                        email: user.email,
+                        createdAt: serverTimestamp(),
+                        updatedAt: serverTimestamp()
+                    });
+                } else {
+                    // Update existing user document
+                    await updateDoc(userDocRef, {
+                        firstName,
+                        lastName,
+                        phone,
+                        updatedAt: serverTimestamp()
+                    });
+                }
+                
+                // Update display name in Firebase Auth
+                await updateProfile(user, {
+                    displayName: `${firstName} ${lastName}`
+                });
+                
+                // Update UI
+                profileName.textContent = `${firstName} ${lastName}`;
+                
+                showNotification('Profile updated successfully', 'success');
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                showNotification('Error updating profile', 'error');
+            }
+        });
+
+        // Change password
+        passwordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (newPassword !== confirmPassword) {
+                showNotification('New passwords do not match', 'error');
+                return;
+            }
+            
+            try {
+                // Reauthenticate user
+                const credential = EmailAuthProvider.credential(user.email, currentPassword);
+                await reauthenticateWithCredential(user, credential);
+                
+                // Update password
+                await updatePassword(user, newPassword);
+                
+                // Clear form
+                passwordForm.reset();
+                
+                showNotification('Password changed successfully', 'success');
+            } catch (error) {
+                console.error('Error changing password:', error);
+                showNotification('Error changing password', 'error');
+            }
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                showNotification('Error signing out', 'error');
+            }
+        });
+
+        // Tab switching
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.dataset.tab;
+                
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show active tab content
+                tabContents.forEach(content => {
+                    if (content.id === `${tabId}-tab`) {
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Format date
+        function formatDate(timestamp) {
+            if (!timestamp) return 'N/A';
+            
+            const date = timestamp.toDate();
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 

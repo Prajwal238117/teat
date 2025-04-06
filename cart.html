@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Nepal Top-Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .cart-page {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .cart-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 40px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .cart-empty i {
+            font-size: 48px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .cart-empty h3 {
+            margin-bottom: 10px;
+        }
+        
+        .cart-empty p {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .cart-items {
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #6c757d;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin: 0 20px;
+        }
+        
+        .quantity-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        
+        .cart-item-total {
+            font-weight: 600;
+            margin: 0 20px;
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        .remove-item {
+            color: #dc3545;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .cart-summary {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-row.total {
+            font-weight: 600;
+            font-size: 18px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .continue-shopping {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 992px) {
+            .cart-container {
+                padding: 0 20px;
+            }
+            
+            .cart-item {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-info {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            
+            .cart-item-actions {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+            
+            .cart-item-quantity {
+                margin: 0;
+            }
+            
+            .cart-item-total {
+                margin: 0;
+            }
+            
+            .cart-summary {
+                margin: 20px 0;
+            }
+            
+            .summary-row {
+                font-size: 0.9rem;
+            }
+            
+            .summary-row.total {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cart-item-image {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .cart-item-title {
+                font-size: 0.9rem;
+            }
+            
+            .cart-item-price {
+                font-size: 0.8rem;
+            }
+            
+            .quantity-btn {
+                width: 25px;
+                height: 25px;
+            }
+            
+            .quantity-input {
+                width: 35px;
+                padding: 3px;
+            }
+            
+            .cart-item-total {
+                font-size: 0.9rem;
+            }
+            
+            .checkout-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-gamepad"></i> Nepal Top-Up
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Games</a>
+            <a href="cart.html" class="cart-icon active"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+            <a href="profile.html" class="account-icon"><i class="fas fa-user"></i></a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Games</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="cart.html" class="active">Cart</a>
+        <a href="profile.html">Account</a>
+    </div>
+
+    <div class="cart-page">
+        <div class="cart-header">
+            <h1 class="cart-title">Your Shopping Cart</h1>
+            <a href="index.html" class="continue-shopping">
+                <i class="fas fa-arrow-left"></i> Continue Shopping
+            </a>
+        </div>
+        
+        <div id="cart-container">
+            <!-- Cart items will be loaded here -->
+        </div>
+        
+        <div id="cart-summary" class="cart-summary" style="display: none;">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span>Rs. <span id="cart-subtotal">0</span></span>
+            </div>
+            <div class="summary-row">
+                <span>Service Fee:</span>
+                <span>Rs. <span id="shipping-cost">0</span></span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span>Rs. <span id="cart-total">0</span></span>
+            </div>
+            <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Nepal Top-Up is your one-stop shop for all digital gaming needs, including game top-ups and gift cards.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Games</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> info@nepaltopup.com</p>
+                <p><i class="fas fa-phone"></i> +977 1234567890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Nepal Top-Up. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Scripts -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html> 

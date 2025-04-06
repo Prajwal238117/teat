@@ -1,71 +1,67 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
     // Helper function to check if user is admin
     function isAdmin() {
-      return request.auth != null && (
-        request.auth.uid == 'b6iehLYc50bqnWEFkXx3un3NwBN2' ||
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
-      );
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
-
-    // Helper function to check if user is accessing their own data
+    
+    // Helper function to check if user is accessing their own document
     function isOwner(userId) {
-      return request.auth != null && request.auth.uid == userId;
+      return isAuthenticated() && request.auth.uid == userId;
     }
-
-    // Admin collection rules
-    match /admins/{adminId} {
-      allow read: if request.auth != null;
-      allow write: if false; // Only allow admin creation through Firebase Console
-    }
-
-    // Users collection rules
+    
+    // Users collection
     match /users/{userId} {
-      allow read: if isAdmin() || isOwner(userId);
-      allow write: if isAdmin() || isOwner(userId);
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
     }
-
-    // Bets collection rules
-    match /bets/{betId} {
-      allow read: if isAdmin() || (request.auth != null && resource.data.userId == request.auth.uid);
-      allow write: if isAdmin() || (request.auth != null && request.resource.data.userId == request.auth.uid);
-    }
-
-    // Game history rules
-    match /gameHistory/{historyId} {
-      allow read: if isAdmin() || (request.auth != null && resource.data.userId == request.auth.uid);
+    
+    // Products collection
+    match /products/{productId} {
+      allow read: if true;
       allow write: if isAdmin();
     }
-
-    // Active games rules
-    match /activeGames/{gameId} {
-      allow read: if isAdmin() || (request.auth != null && resource.data.userId == request.auth.uid);
+    
+    // Categories collection
+    match /categories/{categoryId} {
+      allow read: if true;
       allow write: if isAdmin();
     }
-
-    // Transactions collection rules
-    match /transactions/{transactionId} {
-      allow read: if isAdmin() || (request.auth != null && resource.data.userId == request.auth.uid);
-      allow write: if isAdmin();
+    
+    // Orders collection
+    match /orders/{orderId} {
+      allow read: if isAuthenticated() && 
+        (isOwner(resource.data.userId) || isAdmin());
+      allow create: if isAuthenticated();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // Allow authenticated users to read and write their own addresses
+    match /addresses/{addressId} {
+      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+    
+    // Allow authenticated users to read and write their own carts
+    match /carts/{cartId} {
+      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;
     }
 
-    // Settings collection rules
-    match /settings/{document=**} {
-      allow read: if true;  // Anyone can read settings
-      allow write: if isAdmin();
-    }
-
-    // Game settings collection rules
-    match /gameSettings/{document=**} {
-      allow read: if true;  // Anyone can read game settings
-      allow write: if isAdmin();
-    }
-
-    // Default deny
-    match /{document=**} {
-      allow read, write: if false;
+    // Reviews collection
+    match /reviews/{reviewId} {
+      allow read: if true;  // Allow public read access
+      allow create: if isAuthenticated();  // Only authenticated users can create reviews
+      allow update, delete: if isAuthenticated() && 
+        (resource.data.userId == request.auth.uid || isAdmin());  // Only review owner or admin can update/delete
     }
   }
 } 

@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Nepal Top-Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --info-color: #3498db;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-menu a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info span {
+            font-weight: 500;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-card-header i {
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .stat-card-header i.fa-shopping-cart {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--primary-color);
+        }
+
+        .stat-card-header i.fa-dollar-sign {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+
+        .stat-card-header i.fa-users {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+        }
+
+        .stat-card-header i.fa-gamepad {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--accent-color);
+        }
+
+        .stat-card h3 {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .content-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+
+        .content-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .content-section-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn i {
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-danger {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            font-weight: 600;
+            color: #777;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-processing {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--primary-color);
+        }
+
+        .status-completed {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-cancelled {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--accent-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .action-btn-edit {
+            background-color: var(--primary-color);
+        }
+
+        .action-btn-delete {
+            background-color: var(--accent-color);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .notification-success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .notification-error {
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .notification-warning {
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .notification-info {
+            border-left: 4px solid var(--info-color);
+        }
+
+        .notification i {
+            font-size: 20px;
+        }
+
+        .notification-success i {
+            color: var(--success-color);
+        }
+
+        .notification-error i {
+            color: var(--accent-color);
+        }
+
+        .notification-warning i {
+            color: var(--warning-color);
+        }
+
+        .notification-info i {
+            color: var(--info-color);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #777;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .category-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .category-card p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .category-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .order-info-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: var(--border-radius);
+        }
+
+        .order-info-item .label {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .order-info-item .value {
+            font-weight: 500;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .order-total {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: var(--border-radius);
+        }
+
+        .total-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total-item:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            font-weight: 600;
+        }
+
+        .order-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .tab {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-gamepad"></i>
+                <h2>Nepal Top-Up</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" data-tab="products"><i class="fas fa-gamepad"></i> Products</a></li>
+                <li><a href="#" data-tab="categories"><i class="fas fa-tags"></i> Categories</a></li>
+                <li><a href="#" data-tab="orders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                <li><a href="#" data-tab="users"><i class="fas fa-users"></i> Users</a></li>
+                <li><a href="#" data-tab="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="index.html"><i class="fas fa-home"></i> Back to Website</a></li>
+                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="user-info">
+                    <img src="https://th.bing.com/th?q=Admin+Icon.png&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=en-WW&cc=NP&setlang=en&adlt=moderate&t=1&mw=247" alt="Prajwal">
+                    <span id="admin-name">Prajwal</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard-tab">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Total Orders</h3>
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <p id="total-orders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Total Revenue</h3>
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <p id="total-revenue">$0</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Total Users</h3>
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <p id="total-users">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Total Products</h3>
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <p id="total-products">0</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="content-section-header">
+                        <h2>Recent Orders</h2>
+                        <a href="#" data-tab="orders" class="btn btn-primary">View All</a>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-orders">
+                                <!-- Recent orders will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Tab -->
+            <div class="tab-content" id="products-tab">
+                <div class="content-section">
+                    <div class="content-section-header">
+                        <h2>Products</h2>
+                        <button id="add-product-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Product</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Platform</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table">
+                                <!-- Products will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Tab -->
+            <div class="tab-content" id="categories-tab">
+                <div class="content-section">
+                    <div class="content-section-header">
+                        <h2>Categories</h2>
+                        <button id="add-category-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Category</button>
+                    </div>
+                    <div class="categories-grid" id="categories-grid">
+                        <!-- Categories will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Tab -->
+            <div class="tab-content" id="orders-tab">
+                <div class="content-section">
+                    <div class="content-section-header">
+                        <h2>Orders</h2>
+                        <div>
+                            <select id="order-status-filter" class="form-control">
+                                <option value="all">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table">
+                                <!-- Orders will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div class="tab-content" id="users-tab">
+                <div class="content-section">
+                    <div class="content-section-header">
+                        <h2>Users</h2>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Joined Date</th>
+                                    <th>Orders</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table">
+                                <!-- Users will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings-tab">
+                <div class="content-section">
+                    <div class="content-section-header">
+                        <h2>Settings</h2>
+                    </div>
+                    <div class="tabs">
+                        <div class="tab active" data-settings-tab="general">General</div>
+                        <div class="tab" data-settings-tab="payment">Payment</div>
+                        <div class="tab" data-settings-tab="notifications">Notifications</div>
+                    </div>
+                    <div class="tab-content active" id="general-settings">
+                        <form id="general-settings-form">
+                            <div class="form-group">
+                                <label for="site-name">Site Name</label>
+                                <input type="text" id="site-name" value="Nepal Top-Up">
+                            </div>
+                            <div class="form-group">
+                                <label for="site-email">Contact Email</label>
+                                <input type="email" id="site-email" value="info@nepaltopup.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="site-phone">Contact Phone</label>
+                                <input type="text" id="site-phone" value="+977 1234567890">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                    <div class="tab-content" id="payment-settings">
+                        <form id="payment-settings-form">
+                            <div class="form-group">
+                                <label for="currency">Currency</label>
+                                <select id="currency">
+                                    <option value="USD">USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="NPR">NPR (₨)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="service-fee">Service Fee (%)</label>
+                                <input type="number" id="service-fee" value="5">
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Methods</label>
+                                <div>
+                                    <label><input type="checkbox" checked> Credit/Debit Card</label>
+                                </div>
+                                <div>
+                                    <label><input type="checkbox" checked> PayPal</label>
+                                </div>
+                                <div>
+                                    <label><input type="checkbox" checked> Mobile Payment</label>
+                                </div>
+                                <div>
+                                    <label><input type="checkbox" checked> Bank Transfer</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                    <div class="tab-content" id="notifications-settings">
+                        <form id="notifications-settings-form">
+                            <div class="form-group">
+                                <label>Email Notifications</label>
+                                <div>
+                                    <label><input type="checkbox" checked> New Order</label>
+                                </div>
+                                <div>
+                                    <label><input type="checkbox" checked> Order Status Change</label>
+                                </div>
+                                <div>
+                                    <label><input type="checkbox" checked> New User Registration</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Push Notifications</label>
+                                <div>
+                                    <label><input type="checkbox" checked> New Order</label>
+                                </div>
+                                <div>
+                                    <label><input type="checkbox" checked> Order Status Change</label>
+                                </div>
+                                <div>
+                                    <label><input type="checkbox" checked> New User Registration</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="add-product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Product</h2>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-product-form">
+                    <div class="form-group">
+                        <label for="product-name">Name</label>
+                        <input type="text" id="product-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-category">Category</label>
+                        <select id="product-category" required>
+                            <!-- Categories will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-price">Price</label>
+                        <input type="number" id="product-price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-description">Description</label>
+                        <textarea id="product-description" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Product Image URL</label>
+                        <input type="text" id="image" name="image" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Variants</label>
+                        <div id="variants-container">
+                            <!-- Variant groups will be added here -->
+                        </div>
+                        <button type="button" id="add-variant-group" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Variant
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label>Custom Fields</label>
+                        <div id="custom-fields-container"></div>
+                        <button type="button" id="add-field-btn" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Custom Field
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger close-modal">Cancel</button>
+                <button id="save-product-btn" class="btn btn-primary">Save Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="add-category-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Category</h2>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-category-form">
+                    <div class="form-group">
+                        <label for="category-name">Category Name</label>
+                        <input type="text" id="category-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category-icon">Icon Class (Font Awesome)</label>
+                        <input type="text" id="category-icon" placeholder="e.g., fa-gamepad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category-description">Description</label>
+                        <textarea id="category-description" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger close-modal">Cancel</button>
+                <button id="save-category-btn" class="btn btn-primary">Save Category</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="order-details">
+                    <div class="order-info-item">
+                        <div class="label">Order ID</div>
+                        <div class="value" id="order-id"></div>
+                    </div>
+                    <div class="order-info-item">
+                        <div class="label">Customer</div>
+                        <div class="value" id="order-customer"></div>
+                    </div>
+                    <div class="order-info-item">
+                        <div class="label">Date</div>
+                        <div class="value" id="order-date"></div>
+                    </div>
+                    <div class="order-info-item">
+                        <div class="label">Status</div>
+                        <div class="value">
+                            <select id="order-status">
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-items">
+                    <h3>Order Items</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-items-table">
+                                <!-- Order items will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="order-total">
+                    <div class="total-item">
+                        <span class="label">Subtotal:</span>
+                        <span class="value" id="order-subtotal"></span>
+                    </div>
+                    <div class="total-item">
+                        <span class="label">Service Fee:</span>
+                        <span class="value" id="order-shipping"></span>
+                    </div>
+                    <div class="total-item">
+                        <span class="label">Total:</span>
+                        <span class="value" id="order-total"></span>
+                    </div>
+                </div>
+                <div class="order-actions">
+                    <button id="update-order-status-btn" class="btn btn-primary">Update Status</button>
+                    <button id="delete-order-btn" class="btn btn-danger">Delete Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div id="user-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>User Details</h2>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>User ID</label>
+                    <input type="text" id="user-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="user-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="user-email" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Joined Date</label>
+                    <input type="text" id="user-joined-date" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Total Orders</label>
+                    <input type="text" id="user-total-orders" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Total Spent</label>
+                    <input type="text" id="user-total-spent" readonly>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="edit-product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Product</h2>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-product-form">
+                    <input type="hidden" id="edit-product-id">
+                    <div class="form-group">
+                        <label for="edit-product-name">Name</label>
+                        <input type="text" id="edit-product-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-category">Category</label>
+                        <select id="edit-product-category" required>
+                            <!-- Categories will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-price">Price</label>
+                        <input type="number" id="edit-product-price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-description">Description</label>
+                        <textarea id="edit-product-description" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-image">Image URL</label>
+                        <input type="url" id="edit-product-image" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Variants</label>
+                        <div id="variants-container">
+                            <!-- Variant groups will be added here -->
+                        </div>
+                        <button type="button" id="add-variant-group" class="btn btn-secondary">Add Variant</button>
+                    </div>
+                    <div class="form-group">
+                        <label>Custom Fields</label>
+                        <div id="edit-custom-fields-container"></div>
+                        <button type="button" id="edit-add-field-btn" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Custom Field
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger close-modal">Cancel</button>
+                <button id="update-product-btn" class="btn btn-primary">Update Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Category Modal -->
+    <div id="edit-category-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Category</h2>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-category-form">
+                    <input type="hidden" id="edit-category-id">
+                    <div class="form-group">
+                        <label for="edit-category-name">Category Name</label>
+                        <input type="text" id="edit-category-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-category-icon">Icon Class (Font Awesome)</label>
+                        <input type="text" id="edit-category-icon" placeholder="e.g., fa-gamepad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-category-description">Description</label>
+                        <textarea id="edit-category-description" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger close-modal">Cancel</button>
+                <button id="update-category-btn" class="btn btn-primary">Update Category</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Scripts -->
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

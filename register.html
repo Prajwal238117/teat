@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Nepal Top-Up</title>
+    <title>Register - Nepal Top-Up</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -37,7 +37,7 @@
 
         .auth-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 30px;
             background-color: white;
             border-radius: var(--border-radius);
@@ -100,6 +100,15 @@
 
         .form-group .input-icon input {
             padding-left: 40px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
         }
 
         .form-check {
@@ -250,10 +259,15 @@
             color: var(--danger);
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .auth-container {
                 padding: 20px;
                 margin: 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
             }
         }
     </style>
@@ -261,46 +275,69 @@
 <body>
     <div class="auth-container">
         <div class="auth-header">
-            <h1>Welcome Back</h1>
-            <p>Sign in to your account to continue</p>
+            <h1>Create Account</h1>
+            <p>Sign up to get started with Nepal Top-Up</p>
         </div>
-        <form id="login-form">
-            <div class="form-group">
-                <label for="login-email">Email</label>
-                <div class="input-icon">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="login-email" name="email" required autocomplete="email">
+        <form id="register-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="login-password">Password</label>
+                <label for="register-email">Email</label>
+                <div class="input-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="register-email" name="email" required autocomplete="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
                 <div class="input-icon">
                     <i class="fas fa-lock"></i>
-                    <input type="password" id="login-password" name="password" required autocomplete="current-password">
+                    <input type="password" id="register-password" name="password" required autocomplete="new-password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <div class="input-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirm-password" name="confirm-password" required autocomplete="new-password">
                 </div>
             </div>
             <div class="form-check">
-                <input type="checkbox" id="remember-me" name="remember-me">
-                <label for="remember-me">Remember me</label>
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
             </div>
-            <button type="submit" class="auth-btn">Sign In</button>
+            <button type="submit" class="auth-btn">Create Account</button>
         </form>
         <div class="social-login">
-            <p>Or sign in with</p>
+            <p>Or sign up with</p>
             <div class="social-buttons">
-                <div class="social-btn google" id="google-login">
+                <div class="social-btn google" id="google-register">
                     <i class="fab fa-google"></i>
                 </div>
-                <div class="social-btn facebook" id="facebook-login">
+                <div class="social-btn facebook" id="facebook-register">
                     <i class="fab fa-facebook-f"></i>
                 </div>
-                <div class="social-btn twitter" id="twitter-login">
+                <div class="social-btn twitter" id="twitter-register">
                     <i class="fab fa-twitter"></i>
                 </div>
             </div>
         </div>
         <div class="auth-footer">
-            <p>Don't have an account? <a href="register.html">Sign up</a></p>
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
         </div>
     </div>
 
@@ -309,24 +346,21 @@
         // Import Firebase modules
         import { auth, db } from './firebase-config.js';
         import { 
-            signInWithEmailAndPassword, 
+            createUserWithEmailAndPassword, 
             signInWithPopup, 
             GoogleAuthProvider, 
             FacebookAuthProvider, 
             TwitterAuthProvider,
-            setPersistence,
-            browserLocalPersistence,
-            browserSessionPersistence,
-            onAuthStateChanged
+            onAuthStateChanged,
+            updateProfile
         } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
         import { doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 
         // DOM Elements
-        const loginForm = document.getElementById('login-form');
-        const googleLoginBtn = document.getElementById('google-login');
-        const facebookLoginBtn = document.getElementById('facebook-login');
-        const twitterLoginBtn = document.getElementById('twitter-login');
-        const rememberMeCheckbox = document.getElementById('remember-me');
+        const registerForm = document.getElementById('register-form');
+        const googleRegisterBtn = document.getElementById('google-register');
+        const facebookRegisterBtn = document.getElementById('facebook-register');
+        const twitterRegisterBtn = document.getElementById('twitter-register');
 
         // Check if user is already logged in
         onAuthStateChanged(auth, (user) => {
@@ -336,34 +370,57 @@
             }
         });
 
-        // Login form submission
-        loginForm.addEventListener('submit', async (e) => {
+        // Register form submission
+        registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const rememberMe = rememberMeCheckbox.checked;
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Validate password match
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+            
+            // Validate password strength
+            if (password.length < 6) {
+                showNotification('Password must be at least 6 characters long', 'error');
+                return;
+            }
             
             try {
-                // Set persistence based on remember me checkbox
-                const persistence = rememberMe ? browserLocalPersistence : browserSessionPersistence;
-                
-                await setPersistence(auth, persistence);
-                
-                // Sign in with email and password
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                // Create user with email and password
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
+                
+                // Update user profile
+                await updateProfile(user, {
+                    displayName: `${firstName} ${lastName}`
+                });
+                
+                // Create user profile in Firestore
+                await setDoc(doc(db, 'users', user.uid), {
+                    firstName,
+                    lastName,
+                    email,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
                 
                 // Redirect to home page
                 window.location.href = 'index.html';
             } catch (error) {
-                console.error('Login error:', error);
+                console.error('Registration error:', error);
                 showNotification(error.message, 'error');
             }
         });
 
-        // Google login
-        googleLoginBtn.addEventListener('click', async () => {
+        // Google registration
+        googleRegisterBtn.addEventListener('click', async () => {
             try {
                 const provider = new GoogleAuthProvider();
                 const result = await signInWithPopup(auth, provider);
@@ -385,13 +442,13 @@
                 // Redirect to home page
                 window.location.href = 'index.html';
             } catch (error) {
-                console.error('Google login error:', error);
+                console.error('Google registration error:', error);
                 showNotification(error.message, 'error');
             }
         });
 
-        // Facebook login
-        facebookLoginBtn.addEventListener('click', async () => {
+        // Facebook registration
+        facebookRegisterBtn.addEventListener('click', async () => {
             try {
                 const provider = new FacebookAuthProvider();
                 const result = await signInWithPopup(auth, provider);
@@ -413,13 +470,13 @@
                 // Redirect to home page
                 window.location.href = 'index.html';
             } catch (error) {
-                console.error('Facebook login error:', error);
+                console.error('Facebook registration error:', error);
                 showNotification(error.message, 'error');
             }
         });
 
-        // Twitter login
-        twitterLoginBtn.addEventListener('click', async () => {
+        // Twitter registration
+        twitterRegisterBtn.addEventListener('click', async () => {
             try {
                 const provider = new TwitterAuthProvider();
                 const result = await signInWithPopup(auth, provider);
@@ -441,7 +498,7 @@
                 // Redirect to home page
                 window.location.href = 'index.html';
             } catch (error) {
-                console.error('Twitter login error:', error);
+                console.error('Twitter registration error:', error);
                 showNotification(error.message, 'error');
             }
         });
